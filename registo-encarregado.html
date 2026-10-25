@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registo de Encarregado | CEPS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- =========================================================
+     CEPS · Cole este bloco no <head> de TODAS as páginas,
+     logo a seguir ao <link rel="stylesheet" href="css/style.css">.
+     Garante que o tema escolhido (escuro/contraste/tamanho de
+     texto) se aplica em todas as páginas, não só na inicial.
+     ========================================================= -->
+<link rel="stylesheet" href="css/tema.css">
+<script>
+  // Aplica o tema guardado ANTES da página desenhar, para não
+  // aparecer um "flash" com as cores erradas por um instante.
+  (function(){
+    var tema = localStorage.getItem('ceps_tema');
+    var contraste = localStorage.getItem('ceps_contraste');
+    var escala = localStorage.getItem('ceps_escala');
+    if (tema === 'escuro') document.documentElement.setAttribute('data-tema', 'escuro');
+    if (contraste === 'alto') document.documentElement.setAttribute('data-contraste', 'alto');
+    if (escala) document.documentElement.style.setProperty('--escala-texto', escala);
+  })();
+</script>
+  <style>
+    .registo-shell{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:48px 20px; background:var(--cream); }
+    .registo-card{ width:100%; max-width:600px; background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:44px 40px; }
+    .registo-card h1{ font-family:var(--serif); font-size:1.8rem; color:var(--navy); margin-bottom:6px; }
+    .registo-card .sub{ color:var(--muted); font-size:.92rem; margin-bottom:30px; }
+    .registo-erro{ background:#fdecea; border:1px solid #f3b8b0; color:#a5423b; padding:12px 16px; border-radius:10px; font-size:.85rem; margin-bottom:22px; }
+    .campo{ margin-bottom:18px; }
+    .campo label{ display:block; font-size:.82rem; font-weight:600; color:var(--ink); margin-bottom:6px; }
+    .campo input, .campo select{
+      width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px;
+      font-family:var(--sans); font-size:.95rem; color:var(--ink); background:var(--cream);
+    }
+    .campo input:focus, .campo select:focus{ outline:none; border-color:var(--navy); background:#fff; }
+    .campo-linha{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .separador{ margin:26px 0 18px; padding-top:18px; border-top:1px solid var(--line); }
+    .separador span{ font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--terracotta); }
+    .registo-btn{ width:100%; margin-top:8px; }
+    .registo-rodape{ text-align:center; margin-top:22px; font-size:.85rem; color:var(--muted); }
+    .registo-rodape a{ color:var(--navy); font-weight:600; }
+    @media (max-width:520px){ .campo-linha{ grid-template-columns:1fr; } .registo-card{ padding:32px 24px; } }
+  </style>
+</head>
+<body>
+
+  <div class="registo-shell">
+    <div class="registo-card">
+      <span class="eyebrow">Espaço dos Pais</span>
+      <h1>Criar Conta de Encarregado</h1>
+      <p class="sub">Preencha os seus dados e os do seu educando uma única vez. Nos próximos acessos, vai precisar apenas do e-mail e da palavra-passe.</p>
+
+      <div id="erro-registo" class="registo-erro" style="display:none;"></div>
+
+      <form action="processar-registo-encarregado.php" method="POST">
+        <div class="campo">
+          <label for="nome">O seu nome completo</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="campo">
+          <label for="email">O seu e-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="campo-linha">
+          <div class="campo">
+            <label for="password">Palavra-passe</label>
+            <input type="password" id="password" name="password" required minlength="6">
+          </div>
+          <div class="campo">
+            <label for="password_confirmar">Confirmar palavra-passe</label>
+            <input type="password" id="password_confirmar" name="password_confirmar" required minlength="6">
+          </div>
+        </div>
+
+        <div class="campo-linha">
+          <div class="campo">
+            <label for="parentesco">Grau de parentesco</label>
+            <select id="parentesco" name="parentesco" required>
+              <option value="">Selecione</option>
+              <option value="Pai">Pai</option>
+              <option value="Mãe">Mãe</option>
+              <option value="Tutor">Tutor(a)</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" placeholder="Ex.: 923 000 000" required>
+          </div>
+        </div>
+
+        <div class="separador"><span>Dados do educando</span></div>
+
+        <div class="campo">
+          <label for="nome_aluno">Nome completo do aluno</label>
+          <input type="text" id="nome_aluno" name="nome_aluno" required>
+        </div>
+
+        <div class="campo">
+          <label for="numero_aluno">Número do aluno</label>
+          <input type="text" id="numero_aluno" name="numero_aluno" placeholder="Ex.: 24" required>
+        </div>
+        <p style="font-size:.78rem; color:var(--muted); margin-top:-10px;">
+          O sistema confirma automaticamente a turma e o curso do aluno através deste número.
+        </p>
+
+        <button type="submit" class="btn btn-primary registo-btn">Criar conta</button>
+      </form>
+
+      <p class="registo-rodape">Já tem conta? <a href="login.html">Iniciar sessão</a></p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const erro = params.get('erro');
+    if (erro) {
+      const mensagens = {
+        campos: 'Preencha todos os campos antes de continuar.',
+        senhas: 'As palavras-passe não coincidem.',
+        email_existe: 'Já existe uma conta registada com este e-mail.',
+        curto: 'A palavra-passe deve ter pelo menos 6 caracteres.',
+        aluno_nao_encontrado: 'Não encontrámos nenhum aluno registado com esse número.',
+        nome_nao_coincide: 'O nome indicado não corresponde ao aluno desse número. Verifique os dados.'
+      };
+      const caixa = document.getElementById('erro-registo');
+      caixa.textContent = mensagens[erro] || 'Ocorreu um erro. Tente novamente.';
+      caixa.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

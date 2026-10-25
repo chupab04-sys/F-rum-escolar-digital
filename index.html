@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEPS | Complexo Escolar Privado Sanjaylise - Luanda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/tema.css">
+<script>
+  (function(){
+    var tema = localStorage.getItem('ceps_tema');
+    var contraste = localStorage.getItem('ceps_contraste');
+    var escala = localStorage.getItem('ceps_escala');
+    if (tema === 'escuro') document.documentElement.setAttribute('data-tema', 'escuro');
+    if (contraste === 'alto') document.documentElement.setAttribute('data-contraste', 'alto');
+    if (escala) document.documentElement.style.setProperty('--escala-texto', escala);
+  })();
+</script>
+</head>
+
+ 
+<style>
+  /* ---------- Botão de Definições ---------- */
+  .def-botao{
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 300;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(247, 244, 236, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--navy);
+    letter-spacing: 2px;
+    line-height: 1;
+    transition: box-shadow .2s ease, background .2s ease;
+  }
+  .def-botao:hover{ box-shadow: 0 6px 18px -6px rgba(20,33,61,.3); }
+
+  /* ---------- Painel dropdown ---------- */
+  .def-painel{
+    position: fixed;
+    top: 66px;
+    right: 24px;
+    z-index: 300;
+    width: 280px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 20px 44px -16px rgba(20,33,61,.35);
+    padding: 18px 18px 10px;
+    display: none;
+    font-family: var(--sans);
+  }
+  .def-painel.aberto{ display: block; }
+
+  .def-titulo{
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 14px;
+  }
+
+  .def-linha{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .def-linha .rotulo{ font-size: .85rem; color: var(--ink); font-weight: 500; }
+
+  /* Interruptor (toggle) */
+  .def-toggle{
+    position: relative;
+    width: 40px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--line);
+    border: none;
+    cursor: pointer;
+    transition: background .2s ease;
+  }
+  .def-toggle::after{
+    content: "";
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform .2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+  }
+  .def-toggle.ligado{ background: var(--navy); }
+  .def-toggle.ligado::after{ transform: translateX(18px); }
+
+  /* Tamanho de texto */
+  .def-texto-grupo{ display: flex; gap: 6px; }
+  .def-texto-btn{
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-weight: 700;
+    cursor: pointer;
+    font-size: .8rem;
+  }
+  .def-texto-btn.ativo{ background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  /* Idioma */
+  .def-idioma-grupo{ display: flex; gap: 6px; }
+  .def-idioma-btn{
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .def-idioma-btn.ativo{ background: var(--navy); color: #fff; border-color: var(--navy); }
+  .def-idioma-btn.desativado{ opacity: .5; cursor: not-allowed; }
+
+  .def-separador{ border-top: 1px solid var(--line); margin: 6px 0 12px; }
+
+  .def-links{ display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
+  .def-links a{ font-size: .8rem; color: var(--muted); }
+  .def-links a:hover{ color: var(--navy); }
+
+  /* ---------- Modo Escuro ---------- */
+  :root[data-tema="escuro"]{
+    --navy: #e8ecf3;
+    --navy-deep: #ffffff;
+    --blue: #6f8fc4;
+    --blue-soft: #7f9dcf;
+    --terracotta: #e2897d;
+    --cream: #12161f;
+    --cream-deep: #1a2030;
+    --ink: #eef1f6;
+    --muted: #a7afc0;
+    --line: rgba(255,255,255,.12);
+  }
+  :root[data-tema="escuro"] .ensino-card{ background: #1a2030; }
+  :root[data-tema="escuro"] .site-header{ background: rgba(18,22,31,0.9); }
+  :root[data-tema="escuro"] .def-botao{ background: rgba(18,22,31,0.9); }
+  :root[data-tema="escuro"] .def-painel{ background: #1a2030; }
+  :root[data-tema="escuro"] .def-texto-btn{ background: #12161f; }
+  :root[data-tema="escuro"] .def-idioma-btn{ background: #12161f; }
+  :root[data-tema="escuro"] .hero-media img{ opacity: .92; }
+
+  /* ---------- Alto Contraste ---------- */
+  :root[data-contraste="alto"]{ --muted: var(--ink); --line: currentColor; }
+  :root[data-contraste="alto"] body{ font-weight: 500; }
+  :root[data-contraste="alto"] .btn-primary,
+  :root[data-contraste="alto"] .btn-dark{ outline: 2px solid #fff; outline-offset: -4px; }
+
+  /* ---------- Escala de texto ---------- */
+  html{ font-size: calc(16px * var(--escala-texto, 1)); }
+
+  @media (max-width:480px){
+    .def-painel{ right: 12px; width: calc(100vw - 24px); }
+    .def-botao{ right: 12px; }
+  }
+</style>
+
+<button class="def-botao" id="defBotao" aria-label="Abrir definições" title="Definições">⋮</button>
+
+<div class="def-painel" id="defPainel">
+
+  <div class="def-titulo">Aparência</div>
+  <div class="def-linha">
+    <span class="rotulo">Modo escuro</span>
+    <button class="def-toggle" id="defTemaToggle" aria-label="Alternar modo escuro"></button>
+  </div>
+  <div class="def-linha">
+    <span class="rotulo">Alto contraste</span>
+    <button class="def-toggle" id="defContrasteToggle" aria-label="Alternar alto contraste"></button>
+  </div>
+
+  <div class="def-titulo">Tamanho do texto</div>
+  <div class="def-linha">
+    <div class="def-texto-grupo">
+      <button class="def-texto-btn" data-escala="0.9">A-</button>
+      <button class="def-texto-btn" data-escala="1">A</button>
+      <button class="def-texto-btn" data-escala="1.15">A+</button>
+    </div>
+  </div>
+
+  <div class="def-titulo">Idioma</div>
+  <div class="def-linha">
+    <div class="def-idioma-grupo">
+      <button class="def-idioma-btn ativo">PT</button>
+      <button class="def-idioma-btn desativado" title="Em breve" disabled>EN · Em breve</button>
+    </div>
+  </div>
+
+  <div class="def-separador"></div>
+
+  <div class="def-links">
+    <a href="privacidade.html">Política de Privacidade</a>
+    <a href="termos.html">Termos de Uso</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const botao      = document.getElementById('defBotao');
+  const painel     = document.getElementById('defPainel');
+  const temaBtn    = document.getElementById('defTemaToggle');
+  const contrasteBtn = document.getElementById('defContrasteToggle');
+  const textoBtns  = document.querySelectorAll('.def-texto-btn');
+  const root       = document.documentElement;
+
+  // Abrir/fechar painel
+  botao.addEventListener('click', function(e){
+    e.stopPropagation();
+    painel.classList.toggle('aberto');
+  });
+  document.addEventListener('click', function(e){
+    if (!painel.contains(e.target) && e.target !== botao) {
+      painel.classList.remove('aberto');
+    }
+  });
+
+  // ---- Modo escuro ----
+  function aplicarTema(escuro){
+    root.setAttribute('data-tema', escuro ? 'escuro' : 'claro');
+    temaBtn.classList.toggle('ligado', escuro);
+    localStorage.setItem('ceps_tema', escuro ? 'escuro' : 'claro');
+  }
+  temaBtn.addEventListener('click', function(){
+    aplicarTema(root.getAttribute('data-tema') !== 'escuro');
+  });
+  aplicarTema(localStorage.getItem('ceps_tema') === 'escuro');
+
+  // ---- Alto contraste ----
+  function aplicarContraste(ativo){
+    root.setAttribute('data-contraste', ativo ? 'alto' : 'normal');
+    contrasteBtn.classList.toggle('ligado', ativo);
+    localStorage.setItem('ceps_contraste', ativo ? 'alto' : 'normal');
+  }
+  contrasteBtn.addEventListener('click', function(){
+    aplicarContraste(root.getAttribute('data-contraste') !== 'alto');
+  });
+  aplicarContraste(localStorage.getItem('ceps_contraste') === 'alto');
+
+  // ---- Tamanho do texto ----
+  function aplicarEscala(valor){
+    root.style.setProperty('--escala-texto', valor);
+    textoBtns.forEach(function(b){
+      b.classList.toggle('ativo', b.dataset.escala === String(valor));
+    });
+    localStorage.setItem('ceps_escala', valor);
+  }
+  textoBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      aplicarEscala(btn.dataset.escala);
+    });
+  });
+  aplicarEscala(localStorage.getItem('ceps_escala') || '1');
+})();
+</script>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-name">CEPS</span>
+        <span class="brand-sub">SANJAYLISE · LUANDA</span>
+      </div>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="#historia">A Nossa História</a>
+        <a href="#ensino">Níveis de Ensino</a>
+        <a href="#comunidade">Comunidade</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <a href="login.html" class="btn btn-pill btn-dark">Fórum</a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1>Educação que <em>transforma</em> o<br>futuro desde 1999.</h1>
+        <p class="hero-text">
+          O Complexo Escolar Privado Sanjaylise (CEPS) é uma instituição
+          angolana de prestígio comprometida com formação de qualidade.
+        </p>
+      </div>
+      <div class="hero-media">
+        <img src="assets/escola.jpg" alt="Edifício do Complexo Escolar Privado Sanjaylise" onerror="this.src='https://images.unsplash.com/photo-1759643740737-9ba5a2e62332?q=80&w=1200&auto=format&fit=crop'">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HISTÓRIA ===== -->
+  <section class="section historia" id="historia">
+    <div class="container">
+      <span class="eyebrow">A Nossa História</span>
+      <h2>Fundado em 1999, o Complexo Escolar Privado Sanjaylise nasceu da visão de criar um ambiente de excelência académica e rigor moral no coração de Luanda.</h2>
+      <p class="lede">
+        Situado no Distrito Urbano da Neves Bendinha, bairro Popular, rua de
+        Porto Alexandre, funcionamos em regime de externato — formando há
+        mais de duas décadas gerações de líderes angolanos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== NÍVEIS DE ENSINO ===== -->
+  <section class="section ensino" id="ensino">
+    <div class="container">
+      <h2 class="section-title">Níveis de Ensino</h2>
+      <p class="section-subtitle">Um percurso completo, do Primário ao Pré-universitário.</p>
+
+      <div class="ensino-grid">
+        <article class="ensino-card ensino-card--filled">
+          <span class="ciclo-tag">Ciclo I</span>
+          <h3>Ensino Primário</h3>
+          <p>Bases sólidas do conhecimento com acompanhamento pedagógico personalizado.</p>
+        </article>
+
+        <article class="ensino-card">
+          <span class="ciclo-tag">Ciclo II</span>
+          <h3>I e II Ciclo do Secundário</h3>
+          <p>Desenvolvimento de competências críticas e preparação académica rigorosa.</p>
+        </article>
+
+        <article class="ensino-card">
+          <span class="ciclo-tag">Ciclo III</span>
+          <h3>Ensino Técnico e Pré-universitário</h3>
+          <p>Especialização profissional e preparação intensiva para o acesso ao ensino superior.</p>
+        </article>
+      </div>
+
+      <div class="ensino-photo">
+        <img src="assets/alunos.jpg" alt="Grupo de alunos do CEPS" onerror="this.src='https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200&auto=format&fit=crop'">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA / COMUNIDADE ===== -->
+  <section class="section cta" id="comunidade">
+    <div class="container cta-inner">
+      <h2>Faça parte da<br>nossa comunidade</h2>
+      <p>
+        Aceda ao espaço interno de debate, partilha de recursos e
+        comunicação direta entre alunos, professores, direção e
+        encarregados de educação.
+      </p>
+      <a href="login.html" class="btn btn-pill btn-primary">Entrar no Fórum</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" id="contacto">
+    <div class="container footer-inner">
+      <span class="brand-name">CEPS</span>
+      <span class="brand-sub">SANJAYLISE · COMPLEXO ESCOLAR PRIVADO</span>
+
+      <div class="footer-contact">
+        <span>Bairro Popular, Neves Bendinha, Luanda</span>
+        <span class="dot">•</span>
+        <a href="tel:+244915233231">+244 915 233 231</a>
+        <span class="dot">•</span>
+        <a href="mailto:ceps@sanjaylise.com">ceps@sanjaylise.com</a>
+      </div>
+
+      <div class="footer-copy">
+        <p>&copy; 1999–<span id="year"></span> CEPS SANJAYLISE. TODOS OS DIREITOS RESERVADOS.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade | CEPS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- =========================================================
+     CEPS · Cole este bloco no <head> de TODAS as páginas,
+     logo a seguir ao <link rel="stylesheet" href="css/style.css">.
+     Garante que o tema escolhido (escuro/contraste/tamanho de
+     texto) se aplica em todas as páginas, não só na inicial.
+     ========================================================= -->
+<link rel="stylesheet" href="css/tema.css">
+<script>
+  // Aplica o tema guardado ANTES da página desenhar, para não
+  // aparecer um "flash" com as cores erradas por um instante.
+  (function(){
+    var tema = localStorage.getItem('ceps_tema');
+    var contraste = localStorage.getItem('ceps_contraste');
+    var escala = localStorage.getItem('ceps_escala');
+    if (tema === 'escuro') document.documentElement.setAttribute('data-tema', 'escuro');
+    if (contraste === 'alto') document.documentElement.setAttribute('data-contraste', 'alto');
+    if (escala) document.documentElement.style.setProperty('--escala-texto', escala);
+  })();
+</script>
+  <style>
+    .legal-shell{ max-width: 760px; margin: 0 auto; padding: 80px 24px 100px; }
+    .legal-shell h1{ font-family: var(--serif); font-size: 2.2rem; color: var(--navy); margin-bottom: 8px; }
+    .legal-shell .data{ font-size: .8rem; color: var(--muted); margin-bottom: 40px; }
+    .legal-shell h2{ font-family: var(--serif); font-size: 1.2rem; color: var(--navy); margin: 34px 0 10px; }
+    .legal-shell p{ color: var(--ink); line-height: 1.7; margin-bottom: 14px; }
+    .legal-voltar{ display:inline-block; margin-bottom: 30px; font-size:.85rem; color: var(--muted); }
+    .legal-voltar:hover{ color: var(--navy); }
+  </style>
+</head>
+<body>
+  <div class="legal-shell">
+    <a href="index.html" class="legal-voltar">← Voltar ao início</a>
+    <span class="eyebrow">CEPS · Complexo Escolar Privado</span>
+    <h1>Política de Privacidade</h1>
+    <p class="data">Última atualização: [preencher data]</p>
+
+    <h2>1. Que dados recolhemos</h2>
+    <p>[Descrever aqui: nome, e-mail, turma, curso, sala, dados de contacto de encarregados, etc.]</p>
+
+    <h2>2. Como usamos os dados</h2>
+    <p>[Descrever a finalidade: gestão escolar, comunicação entre professores/alunos/encarregados, etc.]</p>
+
+    <h2>3. Partilha de informação</h2>
+    <p>[Indicar se os dados são partilhados com terceiros ou mantidos apenas internamente na escola.]</p>
+
+    <h2>4. Segurança</h2>
+    <p>[Descrever as medidas de proteção dos dados, ex.: palavras-passe encriptadas.]</p>
+
+    <h2>5. Direitos do utilizador</h2>
+    <p>[Explicar como o utilizador pode pedir a atualização ou eliminação dos seus dados.]</p>
+
+    <h2>6. Contacto</h2>
+    <p>Para questões sobre esta política, contacte a Direção do CEPS através de [inserir e-mail/telefone].</p>
+  </div>
+</body>
+</html>

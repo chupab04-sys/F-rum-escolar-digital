@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar no Fórum | CEPS Sanjaylise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- =========================================================
+     CEPS · Só para páginas .html (index.html, login.html, etc.)
+     Cole isto no <head>, logo a seguir a css/style.css.
+     Para páginas .php, use antes: <?php include 'tema-aplicar.php'; ?>
+     ========================================================= -->
+<link rel="stylesheet" href="css/tema.css">
+<script>
+  (function(){
+    var tema = localStorage.getItem('ceps_tema');
+    var contraste = localStorage.getItem('ceps_contraste');
+    var escala = localStorage.getItem('ceps_escala');
+    if (tema === 'escuro') document.documentElement.setAttribute('data-tema', 'escuro');
+    if (contraste === 'alto') document.documentElement.setAttribute('data-contraste', 'alto');
+    if (escala) document.documentElement.style.setProperty('--escala-texto', escala);
+  })();
+
+</script>
+</script>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-body">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-name">CEPS</span>
+        <span class="brand-sub">SANJAYLISE · LUANDA</span>
+      </a>
+      <div style="flex:1"></div>
+      <a href="index.html" class="btn btn-pill btn-dark">Voltar ao site</a>
+    </div>
+  </header>
+
+  <main class="login-main">
+    <div class="login-card">
+
+      <div class="login-head">
+        <span class="eyebrow">Fórum Escolar</span>
+        <h1>Entrar na tua conta</h1>
+        <p>Acede ao teu painel — aluno, professor, direção ou encarregado de educação.</p>
+      </div>
+
+      <!-- O perfil já não é escolhido aqui: agora vem da base de dados,
+           determinado pelo login.php com base no email/palavra-passe. -->
+
+      <form id="loginForm" class="login-form" action="login.php" method="POST" novalidate>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" id="email" placeholder="nome@sanjaylise.com" required>
+        </label>
+
+        <label class="field">
+          <span>Palavra-passe</span>
+          <input type="password" name="password" id="password" placeholder="••••••••" required>
+        </label>
+
+        <div class="field-row">
+          <label class="checkbox">
+            <input type="checkbox" id="remember">
+            <span>Manter sessão iniciada</span>
+          </label>
+          <a href="#" class="link-muted">Esqueci a palavra-passe</a>
+        </div>
+
+        <p class="form-error" id="formError" hidden></p>
+
+        <button type="submit" class="btn btn-pill btn-primary btn-block">Entrar</button>
+      </form>
+
+      <p style="margin-top:18px; text-align:center;">
+  <a href="escolher-registo.html" style="font-size:.72rem; color:#5b6270; opacity:.55; transition:opacity .2s ease, color .2s ease; text-decoration:none;"
+     onmouseover="this.style.opacity=1; this.style.color='#1b2b4b';"
+     onmouseout="this.style.opacity=.55; this.style.color='#5b6270';">
+    Registar
+  </a>
+</p>
+
+      <p class="demo-hint">
+        Contas de teste (palavra-passe para todas: <strong>123456</strong>):<br>
+        aluno@ceps.com · professor@ceps.com · direcao@ceps.com · encarregado@ceps.com
+      </p>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script src="js/login.js"></script>
+</script>
+</body>
+</html>
